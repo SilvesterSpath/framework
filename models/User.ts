@@ -11,6 +11,6 @@ export class User {
   }
 
   set(update: UserProps): void {
-    this.data = update;
+    Object.assign(this.data, update);
   }
 }

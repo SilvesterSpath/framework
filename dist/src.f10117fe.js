@@ -132,7 +132,7 @@ var User = /** @class */function () {
     return this.data[propName];
   };
   User.prototype.set = function (update) {
-    this.data = update;
+    Object.assign(this.data, update);
   };
   return User;
 }();
