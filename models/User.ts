@@ -9,4 +9,8 @@ export class User {
   get(propName: string): string | number {
     return this.data[propName];
   }
+
+  set(update: UserProps): void {
+    this.data = update;
+  }
 }
