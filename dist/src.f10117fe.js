@@ -151,8 +151,7 @@ var user = new User_1.User({
 console.log(user.get('name'));
 console.log(user.get('age'));
 user.set({
-  name: 'Szilveszter',
-  age: 40
+  age: 30
 });
 console.log(user.get('name'));
 console.log(user.get('age'));
