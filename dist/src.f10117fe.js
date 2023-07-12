@@ -176,7 +176,7 @@ user.on('change', function () {
   console.log('change2');
 });
 user.on('delete', function () {
-  console.log('delete');
+  console.log('Delete was triggered');
 });
 user.trigger('change');
 user.trigger('delete');

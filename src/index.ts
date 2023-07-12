@@ -16,7 +16,7 @@ user.on('change', () => {
 });
 
 user.on('delete', () => {
-  console.log('delete');
+  console.log('Delete was triggered');
 });
 
 user.trigger('change');
