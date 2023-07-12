@@ -143,6 +143,17 @@ var User = /** @class */function () {
     handlers.push(callback);
     this.events[eventName] = handlers;
   };
+  User.prototype.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+    // if handlers undefined or an empty array
+    if (!handlers || handlers.length === 0) {
+      // return early
+      return;
+    }
+    handlers.forEach(function (item) {
+      item();
+    });
+  };
   return User;
 }();
 exports.User = User;
@@ -167,7 +178,8 @@ user.on('change', function () {
 user.on('delete', function () {
   console.log('delete');
 });
-console.log(user);
+user.trigger('change');
+user.trigger('delete');
 },{"../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -193,7 +205,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62598" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51705" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
