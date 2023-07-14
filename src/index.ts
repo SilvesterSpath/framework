@@ -1,24 +1,6 @@
-import { User } from '../models/User';
+import axios from 'axios';
 
-const user = new User({});
-
-/* user.set({ name: 'Silvester', age: 30 });
-
-console.log(user.get('name'));
-console.log(user.get('age')); */
-
-user.on('change', () => {
-  console.log('change');
+axios.post('/users', {
+  name: 'myname',
+  age: 20,
 });
-
-user.on('change', () => {
-  console.log('change2');
-});
-
-user.on('delete', () => {
-  console.log('Delete was triggered');
-});
-
-user.trigger('change');
-
-user.trigger('delete');
