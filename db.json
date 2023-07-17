@@ -2,7 +2,8 @@
   "users": [
     {
       "id": 1,
-      "name": "Silvester2"
+      "name": "Swx",
+      "age": 40
     },
     {
       "name": "Silvester",
@@ -13,6 +14,10 @@
       "name": "Silvester",
       "age": 42,
       "id": 4
+    },
+    {
+      "name": "Silvester3",
+      "id": 5
     }
   ]
 }

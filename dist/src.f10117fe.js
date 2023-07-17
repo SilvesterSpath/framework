@@ -5629,12 +5629,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 var User_1 = require("../models/User");
 var user = new User_1.User({
-  id: 1,
-  name: 'Silvester2'
+  id: 1
 });
-user.fetch();
+user.set({
+  name: 'Swx'
+});
+user.set({
+  age: 40
+});
 user.save();
-/* setTimeout(() => {
+/*
+ user.fetch();
+ setTimeout(() => {
   console.log(user);
 }, 4000); */
 },{"../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
