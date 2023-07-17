@@ -5421,7 +5421,7 @@ exports.isCancel = isCancel;
 exports.CanceledError = CanceledError;
 exports.AxiosError = AxiosError;
 exports.Axios = Axios;
-},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"src/index.ts":[function(require,module,exports) {
+},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"models/User.ts":[function(require,module,exports) {
 "use strict";
 
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -5547,29 +5547,86 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.User = void 0;
 var axios_1 = __importDefault(require("axios"));
-axios_1.default.post('http://localhost:3000/users', {
-  name: 'Silvester',
-  age: 20
-});
-var getUser = function getUser() {
-  return __awaiter(void 0, void 0, void 0, function () {
-    var user;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          return [4 /*yield*/, axios_1.default.get('http://localhost:3000/users/1')];
-        case 1:
-          user = _a.sent();
-          console.log(user.data);
-          return [2 /*return*/];
-      }
+var User = /** @class */function () {
+  function User(data) {
+    this.data = data;
+    this.events = {};
+  }
+  User.prototype.get = function (propName) {
+    return this.data[propName];
+  };
+  User.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+  User.prototype.on = function (eventName, callback) {
+    // quick example
+    // this.events['sdfsdfdsf'] = [() => {}];
+    this.events[eventName]; // either Callback[] or undefined
+    var handlers = this.events[eventName] || []; // in case of undefined we assign an empty array
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  };
+  User.prototype.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+    // if handlers undefined or an empty array
+    if (!handlers || handlers.length === 0) {
+      // return early
+      return;
+    }
+    handlers.forEach(function (item) {
+      item();
     });
-  });
+  };
+  User.prototype.fetch = function () {
+    return __awaiter(this, void 0, Promise, function () {
+      var res;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            return [4 /*yield*/, axios_1.default.get("http://localhost:3000/users/".concat(this.get('id')))];
+          case 1:
+            res = _a.sent();
+            this.set(res.data);
+            return [2 /*return*/];
+        }
+      });
+    });
+  };
+
+  User.prototype.save = function () {};
+  return User;
+}();
+exports.User = User;
+},{"axios":"node_modules/axios/index.js"}],"src/index.ts":[function(require,module,exports) {
+"use strict";
+
+/* import axios from 'axios';
+
+axios.post('http://localhost:3000/users', {
+  name: 'Silvester',
+  age: 20,
+});
+
+const getUser = async () => {
+  const user = await axios.get('http://localhost:3000/users/1');
+  console.log(user.data);
 };
 
-getUser();
-},{"axios":"node_modules/axios/index.js"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+getUser(); */
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var User_1 = require("../models/User");
+var user = new User_1.User({
+  id: 1
+});
+user.fetch();
+setTimeout(function () {
+  console.log(user);
+}, 4000);
+},{"../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5594,7 +5651,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64767" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65492" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
