@@ -5552,32 +5552,12 @@ var axios_1 = __importDefault(require("axios"));
 var User = /** @class */function () {
   function User(data) {
     this.data = data;
-    this.events = {};
   }
   User.prototype.get = function (propName) {
     return this.data[propName];
   };
   User.prototype.set = function (update) {
     Object.assign(this.data, update);
-  };
-  User.prototype.on = function (eventName, callback) {
-    // quick example
-    // this.events['sdfsdfdsf'] = [() => {}];
-    this.events[eventName]; // either Callback[] or undefined
-    var handlers = this.events[eventName] || []; // in case of undefined we assign an empty array
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-  User.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-    // if handlers undefined or an empty array
-    if (!handlers || handlers.length === 0) {
-      // return early
-      return;
-    }
-    handlers.forEach(function (item) {
-      item();
-    });
   };
   User.prototype.fetch = function () {
     return __awaiter(this, void 0, Promise, function () {
@@ -5628,7 +5608,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var User_1 = require("../models/User");
-var user = new User_1.User({});
+var user = new User_1.User({
+  id: 1
+});
+user.fetch();
 user.set({
   name: 'Swx'
 });
@@ -5636,9 +5619,8 @@ user.set({
   age: 40
 });
 user.save();
-/*
- user.fetch();
- setTimeout(() => {
+/* user.fetch();
+setTimeout(() => {
   console.log(user);
 }, 4000); */
 },{"../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -5666,7 +5648,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57995" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58384" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -14,15 +14,16 @@ getUser(); */
 
 import { User } from '../models/User';
 
-const user = new User({});
+const user = new User({ id: 1 });
+
+user.fetch();
 
 user.set({ name: 'Swx' });
 user.set({ age: 40 });
 
 user.save();
 
-/*
- user.fetch();
- setTimeout(() => {
+/* user.fetch();
+setTimeout(() => {
   console.log(user);
 }, 4000); */
