@@ -5628,9 +5628,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var User_1 = require("../models/User");
-var user = new User_1.User({
-  id: 1
-});
+var user = new User_1.User({});
 user.set({
   name: 'Swx'
 });
@@ -5668,7 +5666,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65492" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57995" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

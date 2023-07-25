@@ -14,7 +14,7 @@ getUser(); */
 
 import { User } from '../models/User';
 
-const user = new User({ id: 1 });
+const user = new User({});
 
 user.set({ name: 'Swx' });
 user.set({ age: 40 });
