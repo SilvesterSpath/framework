@@ -23,6 +23,12 @@ user.set({ age: 40 });
 
 user.save();
 
+user.events.on('change', () => {
+  console.log('change!');
+});
+
+user.events.trigger('change');
+
 /* user.fetch();
 setTimeout(() => {
   console.log(user);

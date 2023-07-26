@@ -5421,7 +5421,40 @@ exports.isCancel = isCancel;
 exports.CanceledError = CanceledError;
 exports.AxiosError = AxiosError;
 exports.Axios = Axios;
-},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"models/User.ts":[function(require,module,exports) {
+},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"models/Eventing.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Eventing = void 0;
+var Eventing = /** @class */function () {
+  function Eventing() {
+    this.events = {};
+  }
+  Eventing.prototype.on = function (eventName, callback) {
+    // quick example
+    // this.events['sdfsdfdsf'] = [() => {}];
+    this.events[eventName]; // either Callback[] or undefined
+    var handlers = this.events[eventName] || []; // in case of undefined we assign an empty array
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  };
+  Eventing.prototype.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+    // if handlers undefined or an empty array
+    if (!handlers || handlers.length === 0) {
+      // return early
+      return;
+    }
+    handlers.forEach(function (item) {
+      item();
+    });
+  };
+  return Eventing;
+}();
+exports.Eventing = Eventing;
+},{}],"models/User.ts":[function(require,module,exports) {
 "use strict";
 
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -5549,9 +5582,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.User = void 0;
 var axios_1 = __importDefault(require("axios"));
+var Eventing_1 = require("./Eventing");
 var User = /** @class */function () {
   function User(data) {
     this.data = data;
+    this.events = new Eventing_1.Eventing();
   }
   User.prototype.get = function (propName) {
     return this.data[propName];
@@ -5588,7 +5623,7 @@ var User = /** @class */function () {
   return User;
 }();
 exports.User = User;
-},{"axios":"node_modules/axios/index.js"}],"src/index.ts":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js","./Eventing":"models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 /* import axios from 'axios';
@@ -5619,6 +5654,10 @@ user.set({
   age: 40
 });
 user.save();
+user.events.on('change', function () {
+  console.log('change!');
+});
+user.events.trigger('change');
 /* user.fetch();
 setTimeout(() => {
   console.log(user);
@@ -5648,7 +5687,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58384" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57843" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
