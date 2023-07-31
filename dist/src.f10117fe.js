@@ -117,7 +117,62 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+})({"models/Eventing.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Eventing = void 0;
+var Eventing = /** @class */function () {
+  function Eventing() {
+    this.events = {};
+  }
+  Eventing.prototype.on = function (eventName, callback) {
+    // quick example
+    // this.events['sdfsdfdsf'] = [() => {}];
+    this.events[eventName]; // either Callback[] or undefined
+    var handlers = this.events[eventName] || []; // in case of undefined we assign an empty array
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  };
+  Eventing.prototype.trigger = function (eventName) {
+    var handlers = this.events[eventName];
+    // if handlers undefined or an empty array
+    if (!handlers || handlers.length === 0) {
+      // return early
+      return;
+    }
+    handlers.forEach(function (item) {
+      item();
+    });
+  };
+  return Eventing;
+}();
+exports.Eventing = Eventing;
+},{}],"models/User.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.User = void 0;
+var Eventing_1 = require("./Eventing");
+var User = /** @class */function () {
+  function User(data) {
+    this.data = data;
+    this.events = new Eventing_1.Eventing();
+  }
+  User.prototype.get = function (propName) {
+    return this.data[propName];
+  };
+  User.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+  return User;
+}();
+exports.User = User;
+},{"./Eventing":"models/Eventing.ts"}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5421,42 +5476,40 @@ exports.isCancel = isCancel;
 exports.CanceledError = CanceledError;
 exports.AxiosError = AxiosError;
 exports.Axios = Axios;
-},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"models/Eventing.ts":[function(require,module,exports) {
+},{"./lib/axios.js":"node_modules/axios/lib/axios.js"}],"models/Sync.ts":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Eventing = void 0;
-var Eventing = /** @class */function () {
-  function Eventing() {
-    this.events = {};
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
   }
-  Eventing.prototype.on = function (eventName, callback) {
-    // quick example
-    // this.events['sdfsdfdsf'] = [() => {}];
-    this.events[eventName]; // either Callback[] or undefined
-    var handlers = this.events[eventName] || []; // in case of undefined we assign an empty array
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-  Eventing.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-    // if handlers undefined or an empty array
-    if (!handlers || handlers.length === 0) {
-      // return early
-      return;
-    }
-    handlers.forEach(function (item) {
-      item();
-    });
-  };
-  return Eventing;
-}();
-exports.Eventing = Eventing;
-},{}],"models/User.ts":[function(require,module,exports) {
-"use strict";
-
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  __setModuleDefault(result, mod);
+  return result;
+};
 var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function (resolve) {
@@ -5572,58 +5625,41 @@ var __generator = this && this.__generator || function (thisArg, body) {
     };
   }
 };
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.User = void 0;
-var axios_1 = __importDefault(require("axios"));
-var Eventing_1 = require("./Eventing");
-var User = /** @class */function () {
-  function User(data) {
-    this.data = data;
-    this.events = new Eventing_1.Eventing();
+exports.Sync = void 0;
+var axios_1 = __importStar(require("axios"));
+var Sync = /** @class */function () {
+  function Sync(rootUrl) {
+    this.rootUrl = rootUrl;
   }
-  User.prototype.get = function (propName) {
-    return this.data[propName];
-  };
-  User.prototype.set = function (update) {
-    Object.assign(this.data, update);
-  };
-  User.prototype.fetch = function () {
-    return __awaiter(this, void 0, Promise, function () {
-      var res;
+  Sync.prototype.fetch = function (id) {
+    return __awaiter(this, void 0, axios_1.AxiosPromise, function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            return [4 /*yield*/, axios_1.default.get("http://localhost:3000/users/".concat(this.get('id')))];
+            return [4 /*yield*/, axios_1.default.get("".concat(this.rootUrl, "/").concat(id))];
           case 1:
-            res = _a.sent();
-            this.set(res.data);
-            return [2 /*return*/];
+            return [2 /*return*/, _a.sent()];
         }
       });
     });
   };
-
-  User.prototype.save = function () {
-    var id = this.get('id');
+  Sync.prototype.save = function (data) {
+    var id = data.id;
     if (id) {
       // put request
-      axios_1.default.put("http://localhost:3000/users/".concat(id), this.data);
+      return axios_1.default.put("".concat(this.rootUrl, "/").concat(id), data);
     } else {
       // post request
-      axios_1.default.post('http://localhost:3000/users', this.data);
+      return axios_1.default.post(this.rootUrl, data);
     }
   };
-  return User;
+  return Sync;
 }();
-exports.User = User;
-},{"axios":"node_modules/axios/index.js","./Eventing":"models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
+exports.Sync = Sync;
+},{"axios":"node_modules/axios/index.js"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 /* import axios from 'axios';
@@ -5643,17 +5679,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var User_1 = require("../models/User");
+var Sync_1 = require("../models/Sync");
 var user = new User_1.User({
   id: 1
 });
-user.fetch();
+var sync = new Sync_1.Sync('http://localhost:3000/users');
+var id = user.get('id');
+sync.fetch(id);
 user.set({
   name: 'Swx'
 });
 user.set({
   age: 40
 });
-user.save();
 user.events.on('change', function () {
   console.log('change!');
 });
@@ -5662,7 +5700,7 @@ user.events.trigger('change');
 setTimeout(() => {
   console.log(user);
 }, 4000); */
-},{"../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../models/User":"models/User.ts","../models/Sync":"models/Sync.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5687,7 +5725,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57843" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64328" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

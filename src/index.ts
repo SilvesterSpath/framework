@@ -13,15 +13,17 @@ const getUser = async () => {
 getUser(); */
 
 import { User } from '../models/User';
+import { Sync } from '../models/Sync';
 
 const user = new User({ id: 1 });
+const sync = new Sync('http://localhost:3000/users');
 
-user.fetch();
+const id = user.get('id');
+
+sync.fetch(id);
 
 user.set({ name: 'Swx' });
 user.set({ age: 40 });
-
-user.save();
 
 user.events.on('change', () => {
   console.log('change!');
