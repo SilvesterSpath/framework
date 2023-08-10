@@ -8,6 +8,7 @@ export class Sync {
     return await axios.get(`${this.rootUrl}/${id}`);
   }
 
+  // we should return the data to be able to know the save has happened
   save(data: UserProps): AxiosPromise {
     const { id } = data;
 
