@@ -1,4 +1,5 @@
 import { Eventing } from './Eventing';
+import { Sync } from './Sync';
 
 export interface UserProps {
   name?: string;
@@ -7,6 +8,7 @@ export interface UserProps {
 }
 
 export class User {
+  // we can't easily swap this, but here is okay, not with Sync
   public events: Eventing = new Eventing();
 
   constructor(private data: UserProps) {}
