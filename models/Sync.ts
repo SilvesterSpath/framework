@@ -2,7 +2,7 @@ import axios, { AxiosPromise } from 'axios';
 
 // with this interface we can define the properties of <T>
 interface HasId {
-  id: number;
+  id?: number;
 }
 
 export class Sync<T extends HasId> {
