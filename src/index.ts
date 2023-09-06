@@ -22,6 +22,22 @@ user.save() */
 const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
 
+console.log(user.get('name'));
 user.on('change', () => {
-  console.log('change');
+  console.log('User was changed');
 });
+
+user.trigger('change');
+
+// Reminder on how 'this' works in JS
+/* const colors = {
+  color: 'red',
+  printColor() {
+    console.log(this.color);
+  },
+};
+
+colors.printColor();
+
+const { printColor } = colors;
+printColor(); */
