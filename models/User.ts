@@ -19,4 +19,21 @@ export class User {
   constructor(data: UserProps) {
     this.attributes = new Attributes<UserProps>(data);
   }
+
+  // instead of this, we simple return the this.events with get()
+  // not calling only returning a reference
+  /* on(eventName: string, callback: Callback): void {
+    this.events.on(eventName, callback)
+  } */
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
 }
