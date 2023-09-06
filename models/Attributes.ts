@@ -1,10 +1,10 @@
 import { UserProps } from './User';
 
-export class Attributes<T extends {}> {
+export class Attributes<T> {
   constructor(private data: T) {}
 
-  get(propName: string): string | number | boolean {
-    return this.data[propName];
+  get<K extends keyof T>(key: K): T[K] {
+    return this.data[key];
   }
 
   set(update: T): void {
@@ -12,14 +12,10 @@ export class Attributes<T extends {}> {
   }
 }
 
-const attr = new Attributes<UserProps>({ id: 5, name: 'Silvester', age: 40 });
+/* const attrs = new Attributes<UserProps>({ name: 'Silvester', age: 47, id: 3 });
 
-const id = attr.get('id') as number;
+const name = attrs.get('name');
+const age = attrs.get('age');
+const id = attrs.get('id');
 
-if (typeof id === 'number') {
-  id;
-}
-
-type BestName = 'silvester';
-
-const printName = (name: BestName): void => {};
+console.log(age); */
