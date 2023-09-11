@@ -5626,6 +5626,7 @@ var User = /*#__PURE__*/function () {
     get: function get() {
       return this.events.trigger;
     }
+    // with using an additional 'get' we don't need to use parentheses calling get method
   }, {
     key: "get",
     get: function get() {
@@ -5636,6 +5637,18 @@ var User = /*#__PURE__*/function () {
     value: function set(update) {
       this.attributes.set(update);
       this.events.trigger('change');
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
+      var id = this.get('id');
+      if (typeof id !== 'number') {
+        throw new Error('Cannot fetch without an id');
+      }
+      this.sync.fetch(id).then(function (res) {
+        _this.set(res.data);
+      });
     }
   }]);
   return User;
@@ -5649,9 +5662,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var User_1 = require("../models/User");
 var user = new User_1.User({
-  name: 'Silvester',
-  age: 47,
-  id: 3
+  id: 1
 });
 /* user.attributes.get('name');
 user.attributes.get('age');
@@ -5669,13 +5680,11 @@ user.save() */
 
 const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
-console.log(user.get('name'));
 user.on('change', function () {
   console.log('User was changed, we probably need to update some HTML');
+  console.log(user);
 });
-user.set({
-  name: 'Brad'
-});
+user.fetch();
 // Reminder on how 'this' works in JS
 /* const colors = {
   color: 'red',

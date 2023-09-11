@@ -1,6 +1,6 @@
 import { User } from '../models/User';
 
-const user = new User({ name: 'Silvester', age: 47, id: 3 });
+const user = new User({ id: 1 });
 
 /* user.attributes.get('name');
 user.attributes.get('age');
@@ -22,13 +22,12 @@ user.save() */
 const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
 
-console.log(user.get('name'));
-
 user.on('change', () => {
   console.log('User was changed, we probably need to update some HTML');
+  console.log(user);
 });
 
-user.set({ name: 'Brad' });
+user.fetch();
 
 // Reminder on how 'this' works in JS
 /* const colors = {
