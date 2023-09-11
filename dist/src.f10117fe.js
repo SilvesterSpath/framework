@@ -144,6 +144,11 @@ var Attributes = /*#__PURE__*/function () {
     value: function set(update) {
       Object.assign(this.data, update);
     }
+  }, {
+    key: "getAll",
+    value: function getAll() {
+      return this.data;
+    }
   }]);
   return Attributes;
 }();
@@ -5650,6 +5655,17 @@ var User = /*#__PURE__*/function () {
         _this.set(res.data);
       });
     }
+  }, {
+    key: "save",
+    value: function save() {
+      var _this2 = this;
+      var data = this.attributes.getAll();
+      this.sync.save(data).then(function (res) {
+        _this2.trigger('save');
+      }).catch(function (err) {
+        _this2.trigger('error');
+      });
+    }
   }]);
   return User;
 }();
@@ -5662,7 +5678,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 var User_1 = require("../models/User");
 var user = new User_1.User({
-  id: 1
+  id: 1,
+  name: 'new name',
+  age: 1
 });
 /* user.attributes.get('name');
 user.attributes.get('age');
@@ -5680,11 +5698,11 @@ user.save() */
 
 const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
-user.on('change', function () {
+user.on('save', function () {
   console.log('User was changed, we probably need to update some HTML');
   console.log(user);
 });
-user.fetch();
+user.save();
 // Reminder on how 'this' works in JS
 /* const colors = {
   color: 'red',
