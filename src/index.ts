@@ -23,11 +23,12 @@ const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
 
 console.log(user.get('name'));
+
 user.on('change', () => {
-  console.log('User was changed');
+  console.log('User was changed, we probably need to update some HTML');
 });
 
-user.trigger('change');
+user.set({ name: 'Brad' });
 
 // Reminder on how 'this' works in JS
 /* const colors = {

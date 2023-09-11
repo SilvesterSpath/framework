@@ -5631,6 +5631,12 @@ var User = /*#__PURE__*/function () {
     get: function get() {
       return this.attributes.get;
     }
+  }, {
+    key: "set",
+    value: function set(update) {
+      this.attributes.set(update);
+      this.events.trigger('change');
+    }
   }]);
   return User;
 }();
@@ -5665,9 +5671,11 @@ const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
 console.log(user.get('name'));
 user.on('change', function () {
-  console.log('User was changed');
+  console.log('User was changed, we probably need to update some HTML');
 });
-user.trigger('change');
+user.set({
+  name: 'Brad'
+});
 // Reminder on how 'this' works in JS
 /* const colors = {
   color: 'red',
@@ -5705,7 +5713,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57419" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61356" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
