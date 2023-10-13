@@ -1,6 +1,10 @@
 import { User } from '../models/User';
 
-const user = new User({ id: 1, name: 'new name', age: 1 });
+const user = User.buildUser({ name: 'Silvester', age: 34, id: 23 });
+user.get('id');
+user.get('name');
+user.get('age');
+user.fetch();
 
 /* user.attributes.get('name');
 user.attributes.get('age');
