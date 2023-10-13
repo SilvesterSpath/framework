@@ -1,10 +1,6 @@
 import { User } from '../models/User';
 
-const user = User.buildUser({ name: 'Silvester', age: 34, id: 23 });
-user.get('id');
-user.get('name');
-user.get('age');
-user.fetch();
+const user = User.buildUser({ id: 3 });
 
 /* user.attributes.get('name');
 user.attributes.get('age');
@@ -16,7 +12,7 @@ user.save() */
 // A quick reminder on accessors
 
 /* class Person {
-  constructor(public firstName: string, public lastName: string) {}
+  constructor(public firstName: s tring, public lastName: string) {}
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
@@ -26,12 +22,13 @@ user.save() */
 const person = new Person('firstname', 'lastname');
 console.log(person.fullName); */
 
-user.on('save', () => {
+user.on('change', () => {
   console.log('User was changed, we probably need to update some HTML');
   console.log(user);
 });
 
-user.save();
+user.fetch();
+user.isAdminUser();
 
 // Reminder on how 'this' works in JS
 /* const colors = {
