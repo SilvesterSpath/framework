@@ -33,18 +33,25 @@ export class Model<T extends HasId> {
     this.events.on(eventName, callback)
   } */
 
-  get on() {
-    return this.events.on;
-  }
-
-  get trigger() {
-    return this.events.trigger;
-  }
-
   // with using an additional 'get' we don't need to use parentheses calling get method
-  get get() {
+  /*   get on() {
+    return this.events.on;
+  } */
+
+  // the equivalent to this is making a property of the class
+  on = this.events.on;
+
+  /*   get trigger() {
+    return this.events.trigger;
+  } */
+
+  trigger = this.events.trigger;
+
+  /*   get get() {
     return this.attributes.get;
-  }
+  } */
+
+  get = this.attributes.get;
 
   set(update: T): void {
     this.attributes.set(update);

@@ -136,29 +136,27 @@ var Model = /*#__PURE__*/function () {
     this.attributes = attributes;
     this.events = events;
     this.sync = sync;
-  }
-  // instead of this, we simple return the this.events with get()
-  // not calling only returning a reference
-  /* on(eventName: string, callback: Callback): void {
-    this.events.on(eventName, callback)
-  } */
-  _createClass(Model, [{
-    key: "on",
-    get: function get() {
-      return this.events.on;
-    }
-  }, {
-    key: "trigger",
-    get: function get() {
-      return this.events.trigger;
-    }
+    // instead of this, we simple return the this.events with get()
+    // not calling only returning a reference
+    /* on(eventName: string, callback: Callback): void {
+      this.events.on(eventName, callback)
+    } */
     // with using an additional 'get' we don't need to use parentheses calling get method
-  }, {
-    key: "get",
-    get: function get() {
+    /*   get on() {
+      return this.events.on;
+    } */
+    // the equivalent to this is making a property of the class
+    this.on = this.events.on;
+    /*   get trigger() {
+      return this.events.trigger;
+    } */
+    this.trigger = this.events.trigger;
+    /*   get get() {
       return this.attributes.get;
-    }
-  }, {
+    } */
+    this.get = this.attributes.get;
+  }
+  _createClass(Model, [{
     key: "set",
     value: function set(update) {
       this.attributes.set(update);
@@ -5784,7 +5782,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57075" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55158" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
