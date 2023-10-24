@@ -5459,7 +5459,61 @@ var Eventing = /*#__PURE__*/_createClass(function Eventing() {
   };
 });
 exports.Eventing = Eventing;
-},{}],"models/Model.ts":[function(require,module,exports) {
+},{}],"models/Collection.ts":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Collection = void 0;
+var axios_1 = __importDefault(require("axios"));
+var Eventing_1 = require("./Eventing");
+var Collection = /*#__PURE__*/function () {
+  function Collection(rootUrl, deserialize) {
+    _classCallCheck(this, Collection);
+    this.rootUrl = rootUrl;
+    this.deserialize = deserialize;
+    this.models = [];
+    // hardcode eventing
+    this.events = new Eventing_1.Eventing();
+  }
+  _createClass(Collection, [{
+    key: "on",
+    get: function get() {
+      return this.events.on;
+    }
+  }, {
+    key: "trigger",
+    get: function get() {
+      return this.events.trigger;
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
+      axios_1.default.get(this.rootUrl).then(function (res) {
+        res.data.forEach(function (item) {
+          _this.models.push(_this.deserialize(item));
+        });
+        _this.trigger('change');
+      });
+    }
+  }]);
+  return Collection;
+}();
+exports.Collection = Collection;
+},{"axios":"node_modules/axios/index.js","./Eventing":"models/Eventing.ts"}],"models/Model.ts":[function(require,module,exports) {
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -5713,61 +5767,7 @@ var User = /*#__PURE__*/function (_Model_1$Model) {
   return User;
 }(Model_1.Model);
 exports.User = User;
-},{"./Model":"models/Model.ts","./Attributes":"models/Attributes.ts","./ApiSync":"models/ApiSync.ts","./Eventing":"models/Eventing.ts"}],"models/Collection.ts":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Collection = void 0;
-var axios_1 = __importDefault(require("axios"));
-var Eventing_1 = require("./Eventing");
-var User_1 = require("./User");
-var Collection = /*#__PURE__*/function () {
-  function Collection(rootUrl) {
-    _classCallCheck(this, Collection);
-    this.rootUrl = rootUrl;
-    this.models = [];
-    // hardcode eventing
-    this.events = new Eventing_1.Eventing();
-  }
-  _createClass(Collection, [{
-    key: "on",
-    get: function get() {
-      return this.events.on;
-    }
-  }, {
-    key: "trigger",
-    get: function get() {
-      return this.events.trigger;
-    }
-  }, {
-    key: "fetch",
-    value: function fetch() {
-      var _this = this;
-      axios_1.default.get(this.rootUrl).then(function (res) {
-        res.data.forEach(function (item) {
-          _this.models.push(User_1.User.buildUser(item));
-        });
-        _this.trigger('change');
-      });
-    }
-  }]);
-  return Collection;
-}();
-exports.Collection = Collection;
-},{"axios":"node_modules/axios/index.js","./Eventing":"models/Eventing.ts","./User":"models/User.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Model":"models/Model.ts","./Attributes":"models/Attributes.ts","./ApiSync":"models/ApiSync.ts","./Eventing":"models/Eventing.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 /* import axios, { AxiosResponse } from 'axios';
@@ -5779,12 +5779,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var Collection_1 = require("../models/Collection");
-var collection = new Collection_1.Collection('http://localhost:3000/users');
+var User_1 = require("../models/User");
+var collection = new Collection_1.Collection('http://localhost:3000/users', User_1.User.buildUser);
 collection.on('change', function () {
   console.log(collection);
 });
 collection.fetch();
-},{"../models/Collection":"models/Collection.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../models/Collection":"models/Collection.ts","../models/User":"models/User.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5809,7 +5810,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52800" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64750" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
