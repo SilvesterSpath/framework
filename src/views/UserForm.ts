@@ -1,6 +1,10 @@
 export class UserForm {
   constructor(private parent: Element) {}
 
+  onButtonClick(): void {
+    console.log('first button clicked');
+  }
+
   template(): string {
     return `
       <div>
@@ -12,10 +16,17 @@ export class UserForm {
   }
 
   render(): void {
+    // create a template element from the template string
     const templateElement = document.createElement('template');
+    // set the innerHTML to the template string
     templateElement.innerHTML = this.template();
 
-    // with append the template will no longer hold the content
+    // get the button element
+    const buttonElement = templateElement.content.querySelector('button');
+    // add an event listener to the button
+    buttonElement.addEventListener('click', this.onButtonClick);
+
+    // with append the template will no longer hold the content, counter to appendChild
     this.parent.append(templateElement.content);
   }
 }

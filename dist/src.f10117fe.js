@@ -136,6 +136,11 @@ var UserForm = /*#__PURE__*/function () {
     this.parent = parent;
   }
   _createClass(UserForm, [{
+    key: "onButtonClick",
+    value: function onButtonClick() {
+      console.log('first button clicked');
+    }
+  }, {
     key: "template",
     value: function template() {
       return "\n      <div>\n        <h1>UserForm</h1>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n      </div>\n    ";
@@ -143,9 +148,15 @@ var UserForm = /*#__PURE__*/function () {
   }, {
     key: "render",
     value: function render() {
+      // create a template element from the template string
       var templateElement = document.createElement('template');
+      // set the innerHTML to the template string
       templateElement.innerHTML = this.template();
-      // with append the template will no longer hold the content
+      // get the button element
+      var buttonElement = templateElement.content.querySelector('button');
+      // add an event listener to the button
+      buttonElement.addEventListener('click', this.onButtonClick);
+      // with append the template will no longer hold the content, counter to appendChild
       this.parent.append(templateElement.content);
     }
   }]);
