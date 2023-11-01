@@ -6,6 +6,7 @@ export class UserForm {
       <div>
         <h1>UserForm</h1>
         <input type="text" name="name" />
+        <button>Click Me!</button>
       </div>
     `;
   }

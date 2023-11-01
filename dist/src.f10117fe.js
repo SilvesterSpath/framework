@@ -138,7 +138,7 @@ var UserForm = /*#__PURE__*/function () {
   _createClass(UserForm, [{
     key: "template",
     value: function template() {
-      return "\n      <div>\n        <h1>UserForm</h1>\n        <input type=\"text\" name=\"name\" />\n      </div>\n    ";
+      return "\n      <div>\n        <h1>UserForm</h1>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n      </div>\n    ";
     }
   }, {
     key: "render",
