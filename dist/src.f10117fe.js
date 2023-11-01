@@ -136,6 +136,15 @@ var UserForm = /*#__PURE__*/function () {
     this.parent = parent;
   }
   _createClass(UserForm, [{
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {
+        'click:button': this.onButtonClick
+        /* 'hover:h1': this.onHoverHeader,
+        'drag:div': this.onDragDiv, */
+      };
+    }
+  }, {
     key: "onButtonClick",
     value: function onButtonClick() {
       console.log('first button clicked');

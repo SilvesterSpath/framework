@@ -1,6 +1,14 @@
 export class UserForm {
   constructor(private parent: Element) {}
 
+  eventsMap(): { [key: string]: () => void } {
+    return {
+      'click:button': this.onButtonClick,
+      /* 'hover:h1': this.onHoverHeader,
+      'drag:div': this.onDragDiv, */
+    };
+  }
+
   onButtonClick(): void {
     console.log('first button clicked');
   }
