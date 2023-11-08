@@ -23,11 +23,34 @@ export class UserForm {
     `;
   }
 
+  bindEvents(fragment: DocumentFragment): void {
+    // get the event map
+    const eventsMap = this.eventsMap();
+    // get the event keys
+    const eventKeys = Object.keys(eventsMap);
+    // loop over the event keys
+    for (const eventKey of eventKeys) {
+      // split the event key into the event type and the event name
+      const [eventType, eventName] = eventKey.split(':');
+      // get the elements that match the event name
+      const elements = fragment.querySelectorAll(
+        `[${eventType}="${eventName}"]`
+      );
+      // loop over the elements
+      for (const element of elements) {
+        // add the event listener
+        element.addEventListener(eventType, eventsMap[eventKey]);
+      }
+    }
+  }
+
   render(): void {
     // create a template element from the template string
     const templateElement = document.createElement('template');
     // set the innerHTML to the template string
     templateElement.innerHTML = this.template();
+
+    this.bindEvents(templateElement.content);
 
     // get the button element
     const buttonElement = templateElement.content.querySelector('button');
