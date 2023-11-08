@@ -4,13 +4,17 @@ export class UserForm {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:button': this.onButtonClick,
-      /* 'hover:h1': this.onHoverHeader,
-      'drag:div': this.onDragDiv, */
+      'mouseover:h1': this.onHeaderHover /*
+      'drag:div': this.onDragDiv, */,
     };
   }
 
   onButtonClick(): void {
     console.log('first button clicked');
+  }
+
+  onHeaderHover(): void {
+    console.log('hovered over the header');
   }
 
   template(): string {
@@ -31,15 +35,13 @@ export class UserForm {
     // loop over the event keys
     for (const eventKey of eventKeys) {
       // split the event key into the event type and the event name
-      const [eventType, eventName] = eventKey.split(':');
+      const [eventName, selector] = eventKey.split(':');
       // get the elements that match the event name
-      const elements = fragment.querySelectorAll(
-        `[${eventType}="${eventName}"]`
-      );
+      const elements = fragment.querySelectorAll(selector);
       // loop over the elements
       for (const element of elements) {
         // add the event listener
-        element.addEventListener(eventType, eventsMap[eventKey]);
+        element.addEventListener(eventName, eventsMap[eventKey]);
       }
     }
   }

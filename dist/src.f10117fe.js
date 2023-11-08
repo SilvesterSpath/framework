@@ -146,15 +146,20 @@ var UserForm = /*#__PURE__*/function () {
     key: "eventsMap",
     value: function eventsMap() {
       return {
-        'click:button': this.onButtonClick
-        /* 'hover:h1': this.onHoverHeader,
-        'drag:div': this.onDragDiv, */
+        'click:button': this.onButtonClick,
+        'mouseover:h1': this.onHeaderHover /*
+                                           'drag:div': this.onDragDiv, */
       };
     }
   }, {
     key: "onButtonClick",
     value: function onButtonClick() {
       console.log('first button clicked');
+    }
+  }, {
+    key: "onHeaderHover",
+    value: function onHeaderHover() {
+      console.log('hovered over the header');
     }
   }, {
     key: "template",
@@ -174,10 +179,10 @@ var UserForm = /*#__PURE__*/function () {
         // split the event key into the event type and the event name
         var _eventKey$split = eventKey.split(':'),
           _eventKey$split2 = _slicedToArray(_eventKey$split, 2),
-          eventType = _eventKey$split2[0],
-          eventName = _eventKey$split2[1];
+          eventName = _eventKey$split2[0],
+          selector = _eventKey$split2[1];
         // get the elements that match the event name
-        var elements = fragment.querySelectorAll("[".concat(eventType, "=\"").concat(eventName, "\"]"));
+        var elements = fragment.querySelectorAll(selector);
         // loop over the elements
         var _iterator = _createForOfIteratorHelper(elements),
           _step;
@@ -185,7 +190,7 @@ var UserForm = /*#__PURE__*/function () {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var element = _step.value;
             // add the event listener
-            element.addEventListener(eventType, eventsMap[eventKey]);
+            element.addEventListener(eventName, eventsMap[eventKey]);
           }
         } catch (err) {
           _iterator.e(err);
@@ -247,7 +252,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64676" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64764" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
