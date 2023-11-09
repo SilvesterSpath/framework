@@ -24,6 +24,7 @@ export class UserForm {
       <div>
         <h1>UserForm</h1>
         <div>User name: ${this.model.get('name')}</div>
+        <div>User age: ${this.model.get('age')}</div>
         <input type="text" name="name" />
         <button>Click Me!</button>
       </div>

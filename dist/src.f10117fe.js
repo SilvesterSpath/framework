@@ -5821,7 +5821,7 @@ var UserForm = /*#__PURE__*/function () {
   }, {
     key: "template",
     value: function template() {
-      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n      </div>\n    ");
+      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n      </div>\n    ");
     }
   }, {
     key: "bindEvents",
