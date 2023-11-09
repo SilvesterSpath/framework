@@ -5803,10 +5803,16 @@ var UserForm = /*#__PURE__*/function () {
     key: "eventsMap",
     value: function eventsMap() {
       return {
-        'click:button': this.onButtonClick,
-        'mouseenter:h1': this.onHeaderHover /*
-                                            'drag:div': this.onDragDiv, */
+        /* 'click:button': this.onButtonClick, */
+        /* 'mouseenter:h1': this.onHeaderHover */ /*
+                                                  'drag:div': this.onDragDiv, */
+        'click:.set-age': this.onSetAgeClick
       };
+    }
+  }, {
+    key: "onSetAgeClick",
+    value: function onSetAgeClick() {
+      console.log('age was set');
     }
   }, {
     key: "onButtonClick",
@@ -5821,7 +5827,7 @@ var UserForm = /*#__PURE__*/function () {
   }, {
     key: "template",
     value: function template() {
-      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n      </div>\n    ");
+      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n        <button class=\"set-age\">Random age</button>\n      </div>\n    ");
     }
   }, {
     key: "bindEvents",
@@ -5864,10 +5870,10 @@ var UserForm = /*#__PURE__*/function () {
       // set the innerHTML to the template string
       templateElement.innerHTML = this.template();
       this.bindEvents(templateElement.content);
-      // get the button element
-      var buttonElement = templateElement.content.querySelector('button');
+      /*// get the button element (old way)
+      const buttonElement = templateElement.content.querySelector('button');
       // add an event listener to the button
-      buttonElement.addEventListener('click', this.onButtonClick);
+      buttonElement.addEventListener('click', this.onButtonClick); */
       // with append the template will no longer hold the content, counter to appendChild
       this.parent.append(templateElement.content);
     }
@@ -5890,6 +5896,14 @@ var user = User_1.User.buildUser({
 });
 var userForm = new UserForm_1.UserForm(document.querySelector('#root'), user);
 userForm.render();
+// Clear cache for Firefox
+if ('caches' in window) {
+  caches.keys().then(function (names) {
+    names.forEach(function (name) {
+      caches.delete(name);
+    });
+  });
+}
 },{"../models/User":"models/User.ts","./views/UserForm":"src/views/UserForm.ts"}],"C:/Users/User/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -5915,7 +5929,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62248" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64564" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

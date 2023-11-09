@@ -5,10 +5,15 @@ export class UserForm {
 
   eventsMap(): { [key: string]: () => void } {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover /*
-      'drag:div': this.onDragDiv, */,
+      /* 'click:button': this.onButtonClick, */
+      /* 'mouseenter:h1': this.onHeaderHover */ /*
+      'drag:div': this.onDragDiv, */
+      'click:.set-age': this.onSetAgeClick,
     };
+  }
+
+  onSetAgeClick(): void {
+    console.log('age was set');
   }
 
   onButtonClick(): void {
@@ -27,6 +32,7 @@ export class UserForm {
         <div>User age: ${this.model.get('age')}</div>
         <input type="text" name="name" />
         <button>Click Me!</button>
+        <button class="set-age">Random age</button>
       </div>
     `;
   }
@@ -58,10 +64,10 @@ export class UserForm {
 
     this.bindEvents(templateElement.content);
 
-    // get the button element
+    /*// get the button element (old way)
     const buttonElement = templateElement.content.querySelector('button');
     // add an event listener to the button
-    buttonElement.addEventListener('click', this.onButtonClick);
+    buttonElement.addEventListener('click', this.onButtonClick); */
 
     // with append the template will no longer hold the content, counter to appendChild
     this.parent.append(templateElement.content);
