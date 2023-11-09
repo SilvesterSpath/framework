@@ -1,10 +1,12 @@
+import { User } from '../../models/User';
+
 export class UserForm {
-  constructor(private parent: Element) {}
+  constructor(private parent: Element, public model: User) {}
 
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:button': this.onButtonClick,
-      'mouseover:h1': this.onHeaderHover /*
+      'mouseenter:h1': this.onHeaderHover /*
       'drag:div': this.onDragDiv, */,
     };
   }
