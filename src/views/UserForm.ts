@@ -23,6 +23,7 @@ export class UserForm {
     return `
       <div>
         <h1>UserForm</h1>
+        <div>User name: ${this.model.get('name')}</div>
         <input type="text" name="name" />
         <button>Click Me!</button>
       </div>
