@@ -1,7 +1,13 @@
 import { User } from '../../models/User';
 
 export class UserForm {
-  constructor(private parent: Element, public model: User) {}
+  constructor(private parent: Element, public model: User) {
+    this.bindModel();
+  }
+
+  bindModel(): void {
+    this.model.on('change', () => this.render());
+  }
 
   eventsMap(): { [key: string]: () => void } {
     return {
@@ -61,6 +67,7 @@ export class UserForm {
     // create a template element from the template string
     const templateElement = document.createElement('template');
     // set the innerHTML to the template string
+
     templateElement.innerHTML = this.template();
 
     this.bindEvents(templateElement.content);
@@ -71,6 +78,7 @@ export class UserForm {
     buttonElement.addEventListener('click', this.onButtonClick); */
 
     // with append the template will no longer hold the content, counter to appendChild
+    this.parent.innerHTML = '';
     this.parent.append(templateElement.content);
   }
 }

@@ -5811,8 +5811,17 @@ var UserForm = /*#__PURE__*/function () {
       _this.model.setRandomAge();
       console.log('age was set');
     };
+    this.bindModel();
   }
   _createClass(UserForm, [{
+    key: "bindModel",
+    value: function bindModel() {
+      var _this2 = this;
+      this.model.on('change', function () {
+        return _this2.render();
+      });
+    }
+  }, {
     key: "eventsMap",
     value: function eventsMap() {
       return {
@@ -5883,6 +5892,7 @@ var UserForm = /*#__PURE__*/function () {
       // add an event listener to the button
       buttonElement.addEventListener('click', this.onButtonClick); */
       // with append the template will no longer hold the content, counter to appendChild
+      this.parent.innerHTML = '';
       this.parent.append(templateElement.content);
     }
   }]);
