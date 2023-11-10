@@ -5759,6 +5759,14 @@ var User = /*#__PURE__*/function (_Model_1$Model) {
     value: function isAdminUser() {
       return this.get('id') === 1;
     }
+  }, {
+    key: "setRandomAge",
+    value: function setRandomAge() {
+      var age = Math.round(Math.random() * 100);
+      this.set({
+        age: age
+      });
+    }
   }], [{
     key: "buildUser",
     value: function buildUser(attrs) {
@@ -5795,9 +5803,14 @@ Object.defineProperty(exports, "__esModule", {
 exports.UserForm = void 0;
 var UserForm = /*#__PURE__*/function () {
   function UserForm(parent, model) {
+    var _this = this;
     _classCallCheck(this, UserForm);
     this.parent = parent;
     this.model = model;
+    this.onSetAgeClick = function () {
+      _this.model.setRandomAge();
+      console.log('age was set');
+    };
   }
   _createClass(UserForm, [{
     key: "eventsMap",
@@ -5808,11 +5821,6 @@ var UserForm = /*#__PURE__*/function () {
                                                   'drag:div': this.onDragDiv, */
         'click:.set-age': this.onSetAgeClick
       };
-    }
-  }, {
-    key: "onSetAgeClick",
-    value: function onSetAgeClick() {
-      console.log('age was set');
     }
   }, {
     key: "onButtonClick",
@@ -5929,7 +5937,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64564" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55874" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
