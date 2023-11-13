@@ -43,6 +43,8 @@ export class User extends Model<UserProps> {
       'input[name="name"]'
     ) as HTMLInputElement;
 
-    this.set({ name: input.value });
+    const name = input.value;
+
+    this.set({ name });
   }
 }

@@ -5771,8 +5771,9 @@ var User = /*#__PURE__*/function (_Model_1$Model) {
     key: "setRandomName",
     value: function setRandomName() {
       var input = document.querySelector('input[name="name"]');
+      var name = input.value;
       this.set({
-        name: input.value
+        name: name
       });
     }
   }], [{
