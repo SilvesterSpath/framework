@@ -5767,6 +5767,14 @@ var User = /*#__PURE__*/function (_Model_1$Model) {
         age: age
       });
     }
+  }, {
+    key: "setRandomName",
+    value: function setRandomName() {
+      var input = document.querySelector('input[name="name"]');
+      this.set({
+        name: input.value
+      });
+    }
   }], [{
     key: "buildUser",
     value: function buildUser(attrs) {
@@ -5811,6 +5819,10 @@ var UserForm = /*#__PURE__*/function () {
       _this.model.setRandomAge();
       console.log('age was set');
     };
+    this.onSetNameClick = function () {
+      _this.model.setRandomName();
+      console.log('name was set');
+    };
     this.bindModel();
   }
   _createClass(UserForm, [{
@@ -5828,14 +5840,13 @@ var UserForm = /*#__PURE__*/function () {
         /* 'click:button': this.onButtonClick, */
         /* 'mouseenter:h1': this.onHeaderHover */ /*
                                                   'drag:div': this.onDragDiv, */
-        'click:.set-age': this.onSetAgeClick
+        'click:.set-age': this.onSetAgeClick,
+        'click:.set-name': this.onSetNameClick
       };
     }
-  }, {
-    key: "onButtonClick",
-    value: function onButtonClick() {
+    /*   onButtonClick(): void {
       console.log('first button clicked');
-    }
+    } */
   }, {
     key: "onHeaderHover",
     value: function onHeaderHover() {
@@ -5844,7 +5855,7 @@ var UserForm = /*#__PURE__*/function () {
   }, {
     key: "template",
     value: function template() {
-      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button>Click Me!</button>\n        <button class=\"set-age\">Random age</button>\n      </div>\n    ");
+      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button class=\"set-name\">Change name</button>\n        <button class=\"set-age\">Random age</button>\n      </div>\n    ");
     }
   }, {
     key: "bindEvents",
@@ -5947,7 +5958,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55874" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58742" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

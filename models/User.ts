@@ -37,4 +37,12 @@ export class User extends Model<UserProps> {
     const age = Math.round(Math.random() * 100);
     this.set({ age });
   }
+
+  setRandomName(): void {
+    const input = document.querySelector(
+      'input[name="name"]'
+    ) as HTMLInputElement;
+
+    this.set({ name: input.value });
+  }
 }

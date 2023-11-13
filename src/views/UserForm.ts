@@ -15,6 +15,7 @@ export class UserForm {
       /* 'mouseenter:h1': this.onHeaderHover */ /*
       'drag:div': this.onDragDiv, */
       'click:.set-age': this.onSetAgeClick,
+      'click:.set-name': this.onSetNameClick,
     };
   }
 
@@ -23,9 +24,14 @@ export class UserForm {
     console.log('age was set');
   };
 
-  onButtonClick(): void {
+  onSetNameClick = (): void => {
+    this.model.setRandomName();
+    console.log('name was set');
+  };
+
+  /*   onButtonClick(): void {
     console.log('first button clicked');
-  }
+  } */
 
   onHeaderHover(): void {
     console.log('hovered over the header');
@@ -38,7 +44,7 @@ export class UserForm {
         <div>User name: ${this.model.get('name')}</div>
         <div>User age: ${this.model.get('age')}</div>
         <input type="text" name="name" />
-        <button>Click Me!</button>
+        <button class="set-name">Change name</button>
         <button class="set-age">Random age</button>
       </div>
     `;
