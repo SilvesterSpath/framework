@@ -1,9 +1,10 @@
 import { User } from '../models/User';
 import { UserForm } from './views/UserForm';
 
-const user = User.buildUser({ name: 'Silvester', age: 22, id: 1 });
+const root = document.querySelector('#root')!;
+const user = User.buildUser({ name: 'Silvester', age: 22 });
 
-const userForm = new UserForm();
+const userForm = new UserForm(root, user);
 
 userForm.render();
 

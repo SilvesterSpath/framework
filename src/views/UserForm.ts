@@ -1,12 +1,9 @@
 import { User } from '../../models/User';
 import { View } from './View';
 
-const root = document.querySelector('#root')!;
-const user = User.buildUser({ name: 'Silvester', age: 22 });
-
 export class UserForm extends View {
-  constructor() {
-    super(root, user);
+  constructor(private rootElement: Element, private userModel: User) {
+    super(rootElement, userModel);
   }
 
   eventsMap(): { [key: string]: () => void } {

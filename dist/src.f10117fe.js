@@ -5898,20 +5898,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UserForm = void 0;
-var User_1 = require("../../models/User");
 var View_1 = require("./View");
-var root = document.querySelector('#root');
-var user = User_1.User.buildUser({
-  name: 'Silvester',
-  age: 22
-});
 var UserForm = /*#__PURE__*/function (_View_1$View) {
   _inherits(UserForm, _View_1$View);
   var _super = _createSuper(UserForm);
-  function UserForm() {
+  function UserForm(rootElement, userModel) {
     var _this;
     _classCallCheck(this, UserForm);
-    _this = _super.call(this, root, user);
+    _this = _super.call(this, rootElement, userModel);
+    _this.rootElement = rootElement;
+    _this.userModel = userModel;
     _this.onSetAgeClick = function () {
       _this.model.setRandomAge();
       console.log('age was set');
@@ -5950,7 +5946,7 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
   return UserForm;
 }(View_1.View);
 exports.UserForm = UserForm;
-},{"../../models/User":"models/User.ts","./View":"src/views/View.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./View":"src/views/View.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5958,12 +5954,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 var User_1 = require("../models/User");
 var UserForm_1 = require("./views/UserForm");
+var root = document.querySelector('#root');
 var user = User_1.User.buildUser({
   name: 'Silvester',
-  age: 22,
-  id: 1
+  age: 22
 });
-var userForm = new UserForm_1.UserForm();
+var userForm = new UserForm_1.UserForm(root, user);
 userForm.render();
 // Clear cache for Firefox
 if ('caches' in window) {
