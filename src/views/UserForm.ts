@@ -1,7 +1,8 @@
-import { User } from '../../models/User';
+import { Model } from '../../models/Model';
+import { User, UserProps } from '../../models/User';
 import { View } from './View';
 
-export class UserForm extends View<User> {
+export class UserForm extends View<User, UserProps> {
   constructor(private rootElement: Element, private userModel: User) {
     super(rootElement, userModel);
   }

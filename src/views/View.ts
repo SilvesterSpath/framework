@@ -1,8 +1,11 @@
-export interface ModelForView {
+/*
+// this is not the best solution, but it will eventually work
+ export interface ModelForView {
   on(eventName: string, callback: () => void): void;
-}
+} */
+import { Model } from '../../models/Model';
 
-export abstract class View<T extends ModelForView> {
+export abstract class View<T extends Model<K>, K> {
   constructor(private parent: Element, public model: T) {
     this.bindModel();
   }
