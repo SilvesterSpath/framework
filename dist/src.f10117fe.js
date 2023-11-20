@@ -5815,6 +5815,7 @@ var View = /*#__PURE__*/function () {
     _classCallCheck(this, View);
     this.parent = parent;
     this.model = model;
+    this.regions = {};
     this.bindModel();
   }
   _createClass(View, [{
