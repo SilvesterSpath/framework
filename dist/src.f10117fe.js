@@ -5819,6 +5819,11 @@ var View = /*#__PURE__*/function () {
     this.bindModel();
   }
   _createClass(View, [{
+    key: "regionsMap",
+    value: function regionsMap() {
+      return {};
+    }
+  }, {
     key: "eventsMap",
     value: function eventsMap() {
       return {};
@@ -5830,6 +5835,18 @@ var View = /*#__PURE__*/function () {
       this.model.on('change', function () {
         return _this.render();
       });
+    }
+  }, {
+    key: "mapRegions",
+    value: function mapRegions(fragment) {
+      var regionsMap = this.regionsMap();
+      for (var key in regionsMap) {
+        var selector = regionsMap[key];
+        var element = fragment.querySelector(selector);
+        if (element) {
+          this.regions[key] = element;
+        }
+      }
     }
   }, {
     key: "bindEvents",
@@ -5872,6 +5889,7 @@ var View = /*#__PURE__*/function () {
       // set the innerHTML to the template string
       templateElement.innerHTML = this.template();
       this.bindEvents(templateElement.content);
+      this.mapRegions(templateElement.content);
       /*// get the button element (old way)
       const buttonElement = templateElement.content.querySelector('button');
       // add an event listener to the button
