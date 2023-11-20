@@ -5916,6 +5916,10 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
       _this.model.setRandomName();
       console.log('name was set');
     };
+    _this.onSaveClick = function () {
+      _this.model.save();
+      console.log('model was saved');
+    };
     return _this;
   }
   _createClass(UserForm, [{
@@ -5926,7 +5930,8 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
         /* 'mouseenter:h1': this.onHeaderHover */ /*
                                                   'drag:div': this.onDragDiv, */
         'click:.set-age': this.onSetAgeClick,
-        'click:.set-name': this.onSetNameClick
+        'click:.set-name': this.onSetNameClick,
+        'click:.save-model': this.onSaveClick
       };
     }
     /*   onButtonClick(): void {
@@ -5940,7 +5945,7 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
   }, {
     key: "template",
     value: function template() {
-      return "\n      <div>\n        <h1>UserForm</h1>\n        <div>User name: ".concat(this.model.get('name'), "</div>\n        <div>User age: ").concat(this.model.get('age'), "</div>\n        <input type=\"text\" name=\"name\" />\n        <button class=\"set-name\">Change name</button>\n        <button class=\"set-age\">Random age</button>\n      </div>\n    ");
+      return "\n      <div>        \n        <input placeholder=\"".concat(this.model.get('name'), "\" type=\"text\" name=\"name\" />\n        <button class=\"set-name\">Change name</button>\n        <button class=\"set-age\">Random age</button>\n        <button class=\"save-model\">Save User</button>\n      </div>\n    ");
     }
   }]);
   return UserForm;
@@ -5994,7 +5999,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59520" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51377" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

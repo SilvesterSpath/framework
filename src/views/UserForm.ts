@@ -1,4 +1,3 @@
-import { Model } from '../../models/Model';
 import { User, UserProps } from '../../models/User';
 import { View } from './View';
 
@@ -14,6 +13,7 @@ export class UserForm extends View<User, UserProps> {
       'drag:div': this.onDragDiv, */
       'click:.set-age': this.onSetAgeClick,
       'click:.set-name': this.onSetNameClick,
+      'click:.save-model': this.onSaveClick,
     };
   }
 
@@ -27,6 +27,11 @@ export class UserForm extends View<User, UserProps> {
     console.log('name was set');
   };
 
+  onSaveClick = (): void => {
+    this.model.save();
+    console.log('model was saved');
+  };
+
   /*   onButtonClick(): void {
     console.log('first button clicked');
   } */
@@ -37,13 +42,13 @@ export class UserForm extends View<User, UserProps> {
 
   template(): string {
     return `
-      <div>
-        <h1>UserForm</h1>
-        <div>User name: ${this.model.get('name')}</div>
-        <div>User age: ${this.model.get('age')}</div>
-        <input type="text" name="name" />
+      <div>        
+        <input placeholder="${this.model.get(
+          'name'
+        )}" type="text" name="name" />
         <button class="set-name">Change name</button>
         <button class="set-age">Random age</button>
+        <button class="save-model">Save User</button>
       </div>
     `;
   }
