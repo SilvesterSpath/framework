@@ -26,18 +26,6 @@ export abstract class View<T extends Model<K>, K> {
     this.model.on('change', () => this.render());
   }
 
-  mapRegions(fragment: DocumentFragment): void {
-    const regionsMap = this.regionsMap();
-
-    for (let key in regionsMap) {
-      const selector = regionsMap[key];
-      const element = fragment.querySelector(selector);
-      if (element) {
-        this.regions[key] = element;
-      }
-    }
-  }
-
   bindEvents(fragment: DocumentFragment): void {
     // get the event map
     const eventsMap = this.eventsMap();
@@ -53,6 +41,18 @@ export abstract class View<T extends Model<K>, K> {
       for (const element of elements) {
         // add the event listener
         element.addEventListener(eventName, eventsMap[eventKey]);
+      }
+    }
+  }
+
+  mapRegions(fragment: DocumentFragment): void {
+    const regionsMap = this.regionsMap();
+
+    for (let key in regionsMap) {
+      const selector = regionsMap[key];
+      const element = fragment.querySelector(selector);
+      if (element) {
+        this.regions[key] = element;
       }
     }
   }
@@ -76,6 +76,7 @@ export abstract class View<T extends Model<K>, K> {
     this.onRender();
 
     // with append the template will no longer hold the content, counter to appendChild
+    console.log(this.parent);
     this.parent.innerHTML = '';
     this.parent.append(templateElement.content);
   }
