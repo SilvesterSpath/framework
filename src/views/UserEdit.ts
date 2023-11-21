@@ -4,6 +4,14 @@ import { UserShow } from './UserShow';
 import { UserForm } from './UserForm';
 
 export class UserEdit extends View<User, UserProps> {
+  // override the regionsmap to define the regions in the view
+  regionsMap(): { [key: string]: string } {
+    return {
+      UserShow: '.user-show',
+      UserForm: '.user-form',
+    };
+  }
+
   UserShow: UserShow;
   UserForm: UserForm;
 
