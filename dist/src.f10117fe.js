@@ -5899,7 +5899,6 @@ var View = /*#__PURE__*/function () {
       buttonElement.addEventListener('click', this.onButtonClick); */
       this.onRender();
       // with append the template will no longer hold the content, counter to appendChild
-      console.log(this.parent);
       this.parent.innerHTML = '';
       this.parent.append(templateElement.content);
     }
@@ -6091,7 +6090,6 @@ var user = User_1.User.buildUser({
   age: 22
 });
 var userEdit = new UserEdit_1.UserEdit(root, user);
-console.log(userEdit);
 userEdit.render();
 // Clear cache for Firefox
 if ('caches' in window) {

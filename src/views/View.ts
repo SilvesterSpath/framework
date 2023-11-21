@@ -76,7 +76,6 @@ export abstract class View<T extends Model<K>, K> {
     this.onRender();
 
     // with append the template will no longer hold the content, counter to appendChild
-    console.log(this.parent);
     this.parent.innerHTML = '';
     this.parent.append(templateElement.content);
   }
