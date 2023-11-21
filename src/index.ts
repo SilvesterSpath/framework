@@ -1,12 +1,16 @@
 import { User } from '../models/User';
 import { UserForm } from './views/UserForm';
+import { UserEdit } from './views/UserEdit';
 
 const root = document.querySelector('#root')!;
 const user = User.buildUser({ name: 'Silvester', age: 22 });
 
 const userForm = new UserForm(root, user);
+const userEdit = new UserEdit(root, user);
 
-userForm.render();
+console.log(userEdit);
+
+userEdit.render();
 
 // Clear cache for Firefox
 if ('caches' in window) {

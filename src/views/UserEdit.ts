@@ -12,20 +12,22 @@ export class UserEdit extends View<User, UserProps> {
     };
   }
 
-  UserShow: UserShow;
-  UserForm: UserForm;
-
-  constructor(rootEl: Element, model: User) {
+  /*   constructor(rootEl: Element, model: User) {
     super(rootEl, model);
     this.UserShow = new UserShow(rootEl, model);
     this.UserForm = new UserForm(rootEl, model);
+  } */
+
+  onRender(): void {
+    new UserShow(this.regions.UserShow, this.model).render;
+    new UserForm(this.regions.UserForm, this.model).render;
   }
 
   template(): string {
     return `
       <div>
-        <div class="user-show">${this.UserShow}</div>
-        <div class="user-form>${this.UserForm}</div>
+        <div class="user-show"></div>
+        <div class="user-form></div>
       </div>
     `;
   }

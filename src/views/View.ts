@@ -57,6 +57,8 @@ export abstract class View<T extends Model<K>, K> {
     }
   }
 
+  onRender(): void {}
+
   render(): void {
     // create a template element from the template string
     const templateElement = document.createElement('template');
@@ -71,6 +73,7 @@ export abstract class View<T extends Model<K>, K> {
     const buttonElement = templateElement.content.querySelector('button');
     // add an event listener to the button
     buttonElement.addEventListener('click', this.onButtonClick); */
+    this.onRender();
 
     // with append the template will no longer hold the content, counter to appendChild
     this.parent.innerHTML = '';
