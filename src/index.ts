@@ -1,18 +1,21 @@
-import { User } from '../models/User';
-import { UserEdit } from './views/UserEdit';
+import { UserList } from './views/UserList';
+import { Collection } from '../models/Collection';
+import { User, UserProps } from '../models/User';
 
 const root = document.querySelector('#root')!;
-const user = User.buildUser({ name: 'Silvester', age: 22 });
+const rootUrl = 'http://localhost:3000/users';
 
-const userEdit = new UserEdit(root, user);
+const users = new Collection(rootUrl, (json: UserProps) => {
+  return User.buildUser(json);
+});
 
-userEdit.render();
+// first I need to register the 'change' handler
+users.on('change', () => {
+  userList.render();
+  console.log(users.models);
+});
 
-// Clear cache for Firefox
-if ('caches' in window) {
-  caches.keys().then((names) => {
-    names.forEach((name) => {
-      caches.delete(name);
-    });
-  });
-}
+// users.fetch();
+users.fetch();
+
+const userList = new UserList(root, users);

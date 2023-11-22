@@ -6,6 +6,7 @@ export class Collection<T, K> {
   // hardcode eventing
   events: Eventing = new Eventing();
 
+  // here is <T, K> like <User, UserProps>
   constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
 
   get on() {
